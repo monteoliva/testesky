@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">TesteSky</string>
+    <string name="app_name">Cine Sky</string>
+    <string name="progress_wait">Aguarde&#8230;</string>
+    <string name="btn_error">ERRO</string>
+    <string name="title">Uma seleção de filmes imperdíveis:</string>
+    <string name="content_description_item">Image Item</string>
 </resources>
