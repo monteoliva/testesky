@@ -10,6 +10,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 import org.koin.android.viewmodel.ext.android.viewModel
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.crashlytics.ktx.setCustomKeys
+
 import br.com.monteoliva.testesky.R
 import br.com.monteoliva.testesky.model.gson.Item
 import br.com.monteoliva.testesky.presenter.MVP
@@ -27,6 +32,7 @@ import br.com.monteoliva.testesky.view.main.adapter.ItemAdapter
  */
 class MainActivity : BaseActivity(R.layout.activity_main), MVP.View {
     private lateinit var presenter: MVP.Presenter
+    private lateinit var crashlytics: FirebaseCrashlytics
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -34,11 +40,17 @@ class MainActivity : BaseActivity(R.layout.activity_main), MVP.View {
         setupToolBar(R.id.toolbar)
         setActionBarTitle(R.string.app_name)
 
+        crashlytics = Firebase.crashlytics
+
         presenter = Presenter()
         presenter.setView(this)
 
         swipeRefresh.setOnRefreshListener {
             presenter.loadUpdate()
+        }
+
+        errorButton.setOnClickListener {
+            throw RuntimeException("Erro forçado")
         }
     }
 
